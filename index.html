@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLBB Diamond Shop ⟡</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold:#FFD700; --gold2:#FFA500; --blue:#00CFFF;
+    --dark:#050810; --card:#0d1526; --card2:#111d35;
+    --text:#e8f0ff; --accent:#00e5ff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--dark);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(0,207,255,0.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(139,0,255,0.08) 0%,transparent 50%),radial-gradient(ellipse at 60% 80%,rgba(255,165,0,0.05) 0%,transparent 50%);pointer-events:none;z-index:0;}
+  .stars{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+  .star{position:absolute;border-radius:50%;background:white;animation:twinkle var(--d) ease-in-out infinite alternate;opacity:0;}
+  @keyframes twinkle{0%{opacity:0;transform:scale(0.8)}100%{opacity:0.7;transform:scale(1.2)}}
+
+  .test-banner{position:relative;z-index:10;background:linear-gradient(90deg,rgba(255,165,0,0.15),rgba(255,215,0,0.1));border-bottom:1px solid rgba(255,165,0,0.3);text-align:center;padding:8px 20px;font-size:0.72rem;color:var(--gold2);letter-spacing:1.5px;font-family:'Orbitron',monospace;}
+  .test-banner strong{color:var(--gold);}
+
+  header{position:sticky;top:0;z-index:10;padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:72px;border-bottom:1px solid rgba(0,207,255,0.15);background:rgba(5,8,16,0.9);backdrop-filter:blur(12px);}
+  .logo{font-family:'Orbitron',monospace;font-weight:900;font-size:1.3rem;background:linear-gradient(135deg,var(--gold),var(--gold2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;}
+  .logo span{font-size:0.7rem;display:block;letter-spacing:4px;font-weight:400;-webkit-text-fill-color:var(--blue);}
+  .header-badge{background:linear-gradient(135deg,rgba(0,207,255,0.15),rgba(139,0,255,0.15));border:1px solid rgba(0,207,255,0.3);border-radius:20px;padding:6px 16px;font-size:0.75rem;letter-spacing:1px;color:var(--accent);}
+
+  .hero{position:relative;z-index:1;text-align:center;padding:60px 20px 40px;}
+  .diamond-icon{font-size:3rem;margin-bottom:10px;animation:float 3s ease-in-out infinite;display:block;}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .hero-tag{display:inline-block;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.35);color:var(--gold);font-size:0.7rem;letter-spacing:3px;padding:5px 18px;border-radius:20px;margin-bottom:20px;font-family:'Orbitron',monospace;animation:pulse-glow 2.5s ease-in-out infinite;}
+  @keyframes pulse-glow{0%,100%{box-shadow:0 0 8px rgba(255,215,0,0.2)}50%{box-shadow:0 0 20px rgba(255,215,0,0.5)}}
+  .hero h1{font-family:'Orbitron',monospace;font-size:clamp(2rem,6vw,4rem);font-weight:900;line-height:1.1;margin-bottom:14px;background:linear-gradient(180deg,#fff 0%,var(--gold) 60%,var(--gold2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero p{color:rgba(232,240,255,0.6);font-size:1.05rem;letter-spacing:1px;}
+
+  .section-title{font-family:'Orbitron',monospace;font-size:0.75rem;letter-spacing:4px;color:var(--accent);text-align:center;margin-bottom:32px;position:relative;z-index:1;}
+
+  .packages{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:16px;max-width:1100px;margin:0 auto;padding:0 5% 30px;}
+  .pkg-card{background:var(--card);border:1px solid rgba(0,207,255,0.12);border-radius:16px;padding:22px 16px 18px;text-align:center;cursor:pointer;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);position:relative;overflow:hidden;}
+  .pkg-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,207,255,0.05),transparent 60%,rgba(139,0,255,0.05));opacity:0;transition:opacity 0.3s;}
+  .pkg-card:hover{transform:translateY(-6px) scale(1.02);border-color:rgba(0,207,255,0.4);box-shadow:0 12px 40px rgba(0,207,255,0.15);}
+  .pkg-card:hover::before{opacity:1;}
+  .pkg-card.popular{border-color:rgba(255,215,0,0.4);background:linear-gradient(145deg,#0d1526,#141f38);}
+  .pkg-card.popular::after{content:'🔥 POPULAR';position:absolute;top:10px;right:-22px;background:linear-gradient(90deg,var(--gold),var(--gold2));color:#000;font-size:0.55rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:1px;padding:4px 30px;transform:rotate(35deg);}
+  .pkg-card.selected{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent),0 16px 50px rgba(0,229,255,0.2);transform:translateY(-6px) scale(1.03);}
+  .pkg-gem-icon{font-size:2rem;margin-bottom:8px;filter:drop-shadow(0 0 8px rgba(0,207,255,0.6));}
+  .pkg-diamond-count{font-family:'Orbitron',monospace;font-size:1.6rem;font-weight:900;color:white;margin-bottom:2px;}
+  .pkg-diamond-label{font-size:0.7rem;letter-spacing:2px;color:var(--accent);margin-bottom:10px;}
+  .pkg-bonus{font-size:0.7rem;color:var(--gold);background:rgba(255,215,0,0.08);border-radius:6px;padding:3px 8px;margin-bottom:10px;display:inline-block;}
+  .pkg-price{font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;color:var(--gold);}
+  .pkg-price-sub{font-size:0.65rem;color:rgba(232,240,255,0.4);letter-spacing:1px;}
+
+  .checkout-wrap{position:relative;z-index:1;max-width:500px;margin:20px auto 60px;padding:0 5%;}
+  .checkout-box{background:var(--card2);border:1px solid rgba(0,207,255,0.15);border-radius:20px;padding:30px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+  .checkout-title{font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;color:white;margin-bottom:4px;}
+  .checkout-sub{font-size:0.8rem;color:rgba(232,240,255,0.4);margin-bottom:20px;letter-spacing:0.5px;}
+
+  .no-selection{text-align:center;color:rgba(232,240,255,0.3);font-size:0.85rem;letter-spacing:1px;padding:24px 16px;border:2px dashed rgba(0,207,255,0.1);border-radius:12px;}
+
+  .order-summary{background:rgba(0,207,255,0.05);border:1px solid rgba(0,207,255,0.1);border-radius:12px;padding:14px 18px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;}
+  .order-summary .price{font-family:'Orbitron',monospace;font-weight:700;color:var(--gold);font-size:1.1rem;}
+
+  .form-group{margin-bottom:14px;}
+  label{display:block;font-size:0.72rem;letter-spacing:1.5px;color:rgba(232,240,255,0.5);margin-bottom:6px;font-family:'Orbitron',monospace;}
+  input[type="text"],input[type="email"]{width:100%;background:rgba(0,207,255,0.05);border:1px solid rgba(0,207,255,0.2);border-radius:10px;padding:12px 16px;color:white;font-family:'Rajdhani',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.2s;}
+  input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(0,229,255,0.08);}
+  input::placeholder{color:rgba(232,240,255,0.25);}
+
+  .pay-btn{width:100%;background:linear-gradient(135deg,#0070f3,#00b4ff);border:none;border-radius:12px;padding:16px;color:white;font-family:'Orbitron',monospace;font-size:0.9rem;font-weight:700;letter-spacing:2px;cursor:pointer;margin-top:6px;transition:all 0.25s;}
+  .pay-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,112,243,0.45);}
+  .pay-btn:disabled{opacity:0.6;cursor:not-allowed;}
+
+  .spinner{display:none;width:18px;height:18px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .pay-btn.loading .btn-text{display:none;}
+  .pay-btn.loading .spinner{display:block;}
+
+  .stripe-info{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;color:rgba(232,240,255,0.3);font-size:0.7rem;letter-spacing:1px;}
+
+  .error-msg{color:#ff6b6b;font-size:0.8rem;margin-top:10px;display:none;padding:10px 14px;background:rgba(255,107,107,0.1);border-radius:8px;border:1px solid rgba(255,107,107,0.2);}
+
+  footer{position:relative;z-index:1;text-align:center;padding:24px;border-top:1px solid rgba(255,255,255,0.05);color:rgba(232,240,255,0.2);font-size:0.7rem;letter-spacing:1px;}
+
+  @media(max-width:500px){.packages{grid-template-columns:repeat(2,1fr);}.checkout-box{padding:20px 16px;}}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="test-banner">
+  ⚡ TEST MODE — Use card <strong>4242 4242 4242 4242</strong> · Any future expiry · Any CVC
+</div>
+
+<header>
+  <div class="logo">MLBB SHOP<span>DIAMOND TOPUP</span></div>
+  <div class="header-badge">⟡ INSTANT DELIVERY</div>
+</header>
+
+<div class="hero">
+  <span class="diamond-icon">💎</span>
+  <div class="hero-tag">OFFICIAL TOPUP STORE</div>
+  <h1>MOBILE LEGENDS<br>DIAMONDS</h1>
+  <p>Fast, secure top-up. Diamonds credited instantly to your account.</p>
+</div>
+
+<p class="section-title">— CHOOSE YOUR PACKAGE —</p>
+<div class="packages" id="packages"></div>
+
+<div class="checkout-wrap">
+  <div class="checkout-box">
+    <div class="checkout-title">CHECKOUT</div>
+    <div class="checkout-sub">You'll be redirected to Stripe's secure payment page</div>
+
+    <div class="no-selection" id="noSelection">⬆ Select a diamond package above to continue</div>
+
+    <div id="orderSummary" style="display:none">
+      <div class="order-summary">
+        <div>
+          <div style="font-weight:700;font-size:1rem" id="summaryDia">—</div>
+          <div style="font-size:0.72rem;color:rgba(232,240,255,0.4);letter-spacing:1px">DIAMONDS</div>
+        </div>
+        <div class="price" id="summaryPrice">$0.00</div>
+      </div>
+
+      <div class="form-group">
+        <label>MLBB USER ID</label>
+        <input type="text" id="userId" placeholder="e.g. 123456789" maxlength="20">
+      </div>
+      <div class="form-group">
+        <label>SERVER ID</label>
+        <input type="text" id="serverId" placeholder="e.g. 1234" maxlength="10">
+      </div>
+      <div class="form-group">
+        <label>EMAIL (for receipt)</label>
+        <input type="email" id="emailInput" placeholder="you@email.com">
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+
+      <button class="pay-btn" id="payBtn" onclick="goToStripe()">
+        <span class="btn-text">🔒 PROCEED TO PAYMENT</span>
+        <div class="spinner"></div>
+      </button>
+
+      <div class="stripe-info">🔒 Redirects to Stripe's official secure checkout page</div>
+    </div>
+  </div>
+</div>
+
+<footer>© 2025 MLBB Diamond Shop · Not affiliated with Moonton · Test mode only</footer>
+
+<script>
+const packages = [
+  {id:1, diamonds:11,   bonus:null,       price:0.22,  icon:'💎'},
+  {id:2, diamonds:22,   bonus:null,       price:0.43,  icon:'💎'},
+  {id:3, diamonds:56,   bonus:'+5 bonus', price:0.99,  icon:'💎'},
+  {id:4, diamonds:112,  bonus:'+11',      price:1.99,  icon:'💎', popular:true},
+  {id:5, diamonds:240,  bonus:'+24',      price:3.99,  icon:'💠'},
+  {id:6, diamonds:355,  bonus:'+36',      price:5.99,  icon:'💠'},
+  {id:7, diamonds:570,  bonus:'+57',      price:9.99,  icon:'🔷'},
+  {id:8, diamonds:1160, bonus:'+116',     price:19.99, icon:'🔷'},
+  {id:9, diamonds:2398, bonus:'+240',     price:39.99, icon:'👑'},
+  {id:10,diamonds:4830, bonus:'+483',     price:79.99, icon:'👑'},
+];
+
+let selectedPkg = null;
+
+// Stars
+const starsEl = document.getElementById('stars');
+for(let i=0;i<80;i++){
+  const s=document.createElement('div'); s.className='star';
+  const sz=Math.random()*2.5+0.5;
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;--d:${(Math.random()*3+1.5).toFixed(1)}s;animation-delay:${(Math.random()*4).toFixed(1)}s;`;
+  starsEl.appendChild(s);
+}
+
+// Render packages
+const grid=document.getElementById('packages');
+packages.forEach(pkg=>{
+  const card=document.createElement('div');
+  card.className='pkg-card'+(pkg.popular?' popular':'');
+  card.id='pkg-'+pkg.id;
+  card.innerHTML=`
+    <div class="pkg-gem-icon">${pkg.icon}</div>
+    <div class="pkg-diamond-count">${pkg.diamonds.toLocaleString()}</div>
+    <div class="pkg-diamond-label">DIAMONDS</div>
+    ${pkg.bonus?`<div class="pkg-bonus">${pkg.bonus}</div>`:'<div style="height:22px"></div>'}
+    <div class="pkg-price">$${pkg.price.toFixed(2)}</div>
+    <div class="pkg-price-sub">USD · ONE TIME</div>`;
+  card.addEventListener('click',()=>selectPkg(pkg));
+  grid.appendChild(card);
+});
+
+function selectPkg(pkg){
+  selectedPkg=pkg;
+  document.querySelectorAll('.pkg-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('pkg-'+pkg.id).classList.add('selected');
+  document.getElementById('noSelection').style.display='none';
+  document.getElementById('orderSummary').style.display='block';
+  document.getElementById('summaryDia').textContent=pkg.diamonds.toLocaleString();
+  document.getElementById('summaryPrice').textContent='$'+pkg.price.toFixed(2);
+  document.querySelector('.checkout-box').scrollIntoView({behavior:'smooth',block:'center'});
+  hideError();
+}
+
+async function goToStripe(){
+  if(!selectedPkg) return;
+  const userId=document.getElementById('userId').value.trim();
+  const serverId=document.getElementById('serverId').value.trim();
+  const email=document.getElementById('emailInput').value.trim();
+  if(!userId){showError('Please enter your MLBB User ID!');return;}
+  if(!serverId){showError('Please enter your Server ID!');return;}
+  if(!email||!email.includes('@')){showError('Please enter a valid email!');return;}
+  hideError(); setLoading(true);
+  try{
+    const res=await fetch('/create-checkout',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({pkgId:selectedPkg.id,userId,serverId,email})
+    });
+    const data=await res.json();
+    if(data.error){showError('Error: '+data.error);setLoading(false);return;}
+    window.location.href=data.url;
+  }catch(err){
+    showError('Cannot connect to server. Make sure server.js is running in Termux!');
+    setLoading(false);
+  }
+}
+
+function setLoading(s){
+  const btn=document.getElementById('payBtn');
+  btn.disabled=s; btn.classList.toggle('loading',s);
+}
+function showError(msg){
+  const el=document.getElementById('errorMsg');
+  el.textContent='⚠ '+msg; el.style.display='block';
+}
+function hideError(){document.getElementById('errorMsg').style.display='none';}
+</script>
+</body>
+</html>
